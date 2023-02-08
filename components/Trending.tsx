@@ -2,75 +2,68 @@ import React from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
 import BookmarkEmpty from "../assets/images/icon-bookmark-empty.svg";
-import MoviesIcon from "../assets/images/icon-category-movie.svg";
+import Movies from "../assets/images/icon-category-movie.svg";
 import data from "../data.json";
 
-function Movies() {
+function Trending() {
   return (
     <Container>
-      <Title>Movies</Title>
-      <Content>
+      <Title>Trending</Title>
+      <SliderBox>
         {data
-          .filter((category) => category.category === "Movie")
+          .filter((trend) => trend.isTrending === true)
           .map((item) => {
             return (
-              <>
-                <ContentBox>
-                  <TrendingItem image={item.thumbnail.regular.small}>
-                    <BookmarkCircle>
-                      <Image src={BookmarkEmpty} alt="empty bookmark" />
-                    </BookmarkCircle>
-                  </TrendingItem>
-                  <Details>
-                    <Information>
-                      <Text>{item.year}</Text>
-                      <Circle></Circle>
-                      <Info>
-                        <CategoryImage src={MoviesIcon} alt="movies" />
-                        <Text>{item.category}</Text>
-                      </Info>
-                      <Circle></Circle>
-                      <Text>{item.rating}</Text>
-                    </Information>
-                    <Name>{item.title}</Name>
-                  </Details>
-                </ContentBox>
-              </>
+              <TrendingItem image={item.thumbnail.trending?.small}>
+                <BookmarkCircle>
+                  <Image src={BookmarkEmpty} alt="empty bookmark" />
+                </BookmarkCircle>
+                <Details>
+                  <Information>
+                    <Text>{item.year}</Text>
+                    <Circle></Circle>
+                    <Info>
+                      <CategoryImage src={Movies} alt="movies" />
+                      <Text>{item.category}</Text>
+                    </Info>
+                    <Circle></Circle>
+                    <Text>{item.rating}</Text>
+                  </Information>
+                  <Name>{item.title}</Name>
+                </Details>
+              </TrendingItem>
             );
           })}
-      </Content>
+      </SliderBox>
     </Container>
   );
 }
 
-export default Movies;
+export default Trending;
 
 const Container = styled.div``;
 
-const Content = styled.div`
+const SliderBox = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  column-gap: 15px;
-  row-gap: 16px;
+  column-gap: 16px;
+  overflow: hidden;
 `;
-
-const ContentBox = styled.div``;
 
 const Title = styled.h2`
   font-size: 20px;
   font-weight: 300;
   line-height: 25px;
   letter-spacing: -0.3125px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   color: #ffffff;
 `;
 
 const TrendingItem = styled.div(
-  (props: { image: string }) => css`
-    width: 164px;
-    height: 110px;
+  (props: { image: string | undefined }) => css`
+    width: 240px;
+    height: 140px;
     border-radius: 8px;
-    padding: 8px 8px 0 0;
+    padding: 8px 8px 16px 16px;
     background: white;
     display: flex;
     flex-direction: column;
@@ -90,7 +83,7 @@ const BookmarkCircle = styled.div`
 `;
 
 const Details = styled.div`
-  margin-top: 8px;
+  padding-top: 45px;
 `;
 
 const Information = styled.div`

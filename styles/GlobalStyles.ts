@@ -10,6 +10,7 @@ const GlobalStyles = createGlobalStyle`
 body {
     width: 100vw;
     min-height: 100vh;
+    background: #10141E;
  
 }
 `;

@@ -8,5 +8,5 @@ function Home() {
 export default Home;
 
 const Container = styled.div`
-  margin: 0;
+  
 `;

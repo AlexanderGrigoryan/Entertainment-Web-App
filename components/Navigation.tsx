@@ -14,7 +14,7 @@ function Navigation() {
     <Container>
       <Image src={Logo} alt="logo" width={25} height={20} />
       <Nav>
-        <Link href="/home">
+        <Link href="/index">
           <HomeIcon />
         </Link>
         <Link href="/movies">
