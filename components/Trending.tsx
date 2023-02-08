@@ -12,9 +12,9 @@ function Trending() {
       <SliderBox>
         {data
           .filter((trend) => trend.isTrending === true)
-          .map((item) => {
+          .map((item, index) => {
             return (
-              <TrendingItem image={item.thumbnail.trending?.small}>
+              <TrendingItem key={index} image={item.thumbnail.trending?.small}>
                 <BookmarkCircle>
                   <Image src={BookmarkEmpty} alt="empty bookmark" />
                 </BookmarkCircle>

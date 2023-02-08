@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
 import BookmarkEmpty from "../assets/images/icon-bookmark-empty.svg";
+import BookmarkFull from "../assets/images/icon-bookmark-full.svg";
 import MoviesIcon from "../assets/images/icon-category-movie.svg";
 import data from "../data.json";
 
 function Movies() {
+  const [bookmarked, setBookmarked] = useState<boolean>(false);
+
+
   return (
     <Container>
       <Title>Movies</Title>
@@ -18,7 +22,13 @@ function Movies() {
                 <ContentBox>
                   <TrendingItem image={item.thumbnail.regular.small}>
                     <BookmarkCircle>
-                      <Image src={BookmarkEmpty} alt="empty bookmark" />
+                    <BookmarkCircle>
+                      {item.isBookmarked ? (
+                        <Image src={BookmarkFull} alt="empty bookmark" />
+                      ) : (
+                        <Image src={BookmarkEmpty} alt="empty bookmark" />
+                      )}
+                    </BookmarkCircle>
                     </BookmarkCircle>
                   </TrendingItem>
                   <Details>
@@ -45,7 +55,9 @@ function Movies() {
 
 export default Movies;
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin-bottom: 40px;
+`;
 
 const Content = styled.div`
   display: flex;

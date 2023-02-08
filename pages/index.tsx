@@ -1,8 +1,11 @@
 import Trending from "@/components/Trending";
 import Head from "next/head";
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function Home() {
+  const [bookmarked, setBookmarked] = useState<boolean>(false);
+
   return (
     <>
       <Head>
