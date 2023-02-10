@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
 import BookmarkEmpty from "../assets/images/icon-bookmark-empty.svg";
 import BookmarkFull from "../assets/images/icon-bookmark-full.svg";
 import TvSeriesIcon from "../assets/images/icon-category-tv.svg";
-import data from "../data.json";
+import TvApi from "../data.json";
+import useData from "@/hooks/useData";
 
 function TvSeries() {
-  const [bookmarked, setBookmarked] = useState<boolean>(false);
+  const { data, setData } = useData();
+
+  useEffect(() => {
+    setData(TvApi);
+  }, [data]);
 
   return (
     <Container>
@@ -15,20 +20,31 @@ function TvSeries() {
       <Content>
         {data
           .filter((category) => category.category === "TV Series")
-          .map((item) => {
+          .map((item, index) => {
             return (
               <>
-                <ContentBox>
+                <ContentBox key={index}>
                   <TrendingItem image={item.thumbnail.regular.small}>
-                    <BookmarkCircle>
-                      <BookmarkCircle>
-                        {item.isBookmarked ? (
-                          <Image src={BookmarkFull} alt="empty bookmark" />
-                        ) : (
-                          <Image src={BookmarkEmpty} alt="empty bookmark" />
-                        )}
-                      </BookmarkCircle>
-                    </BookmarkCircle>
+                    <BookmarkButton
+                      onClick={() => {
+                        const bookmarkedData = [...data];
+                        const dataIndex = bookmarkedData.findIndex(
+                          (element) => element.title === item.title
+                        );
+                        if (bookmarkedData[dataIndex].isBookmarked) {
+                          bookmarkedData[dataIndex].isBookmarked = false;
+                        } else {
+                          bookmarkedData[dataIndex].isBookmarked = true;
+                        }
+                        setData(bookmarkedData);
+                      }}
+                    >
+                      {item.isBookmarked ? (
+                        <Image src={BookmarkFull} alt="empty bookmark" />
+                      ) : (
+                        <Image src={BookmarkEmpty} alt="empty bookmark" />
+                      )}
+                    </BookmarkButton>
                   </TrendingItem>
                   <Details>
                     <Information>
@@ -89,7 +105,7 @@ const TrendingItem = styled.div(
   `
 );
 
-const BookmarkCircle = styled.div`
+const BookmarkButton = styled.div`
   height: 32px;
   width: 32px;
   border-radius: 50%;
@@ -98,6 +114,8 @@ const BookmarkCircle = styled.div`
   align-items: center;
   justify-content: center;
   align-self: flex-end;
+  border: none;
+  cursor: pointer;
 `;
 
 const Details = styled.div`

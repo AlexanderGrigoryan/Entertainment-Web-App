@@ -39,7 +39,6 @@ const Button = styled.button`
 const Input = styled.input`
   height: 100%;
   width: 214px;
-  font-family: "Outfit", sans-serif;
   font-size: 16px;
   font-weight: 300;
   line-height: 20px;

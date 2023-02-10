@@ -5,7 +5,7 @@ import { Outfit } from "@next/font/google";
 import type { AppProps } from "next/app";
 import styled from "styled-components";
 
-const outfit = Outfit({
+export const outfit = Outfit({
   weight: ["300", "500"],
   style: ["normal"],
   subsets: ["latin"],
@@ -13,8 +13,8 @@ const outfit = Outfit({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={outfit.className}>
-      <GlobalStyles />
+    <main>
+      <GlobalStyles font={outfit.style.fontFamily} />
       <Navigation />
       <Container>
         <Search />

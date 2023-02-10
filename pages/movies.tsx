@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
 import BookmarkEmpty from "../assets/images/icon-bookmark-empty.svg";
 import BookmarkFull from "../assets/images/icon-bookmark-full.svg";
 import MoviesIcon from "../assets/images/icon-category-movie.svg";
-import data from "../data.json";
+import MovieApi from "../data.json";
+import useData from "@/hooks/useData";
 
 function Movies() {
-  const [bookmarked, setBookmarked] = useState<boolean>(false);
+  const { data, setData } = useData();
 
+  useEffect(() => {
+    setData(MovieApi);
+  }, [data]);
 
   return (
     <Container>
@@ -16,20 +20,31 @@ function Movies() {
       <Content>
         {data
           .filter((category) => category.category === "Movie")
-          .map((item) => {
+          .map((item, index) => {
             return (
               <>
-                <ContentBox>
+                <ContentBox key={index}>
                   <TrendingItem image={item.thumbnail.regular.small}>
-                    <BookmarkCircle>
-                    <BookmarkCircle>
+                    <BookmarkButton
+                      onClick={() => {
+                        const bookmarkedData = [...data];
+                        const dataIndex = bookmarkedData.findIndex(
+                          (element) => element.title === item.title
+                        );
+                        if (bookmarkedData[dataIndex].isBookmarked) {
+                          bookmarkedData[dataIndex].isBookmarked = false;
+                        } else {
+                          bookmarkedData[dataIndex].isBookmarked = true;
+                        }
+                        setData(bookmarkedData);
+                      }}
+                    >
                       {item.isBookmarked ? (
                         <Image src={BookmarkFull} alt="empty bookmark" />
                       ) : (
                         <Image src={BookmarkEmpty} alt="empty bookmark" />
                       )}
-                    </BookmarkCircle>
-                    </BookmarkCircle>
+                    </BookmarkButton>
                   </TrendingItem>
                   <Details>
                     <Information>
@@ -90,7 +105,7 @@ const TrendingItem = styled.div(
   `
 );
 
-const BookmarkCircle = styled.div`
+const BookmarkButton = styled.button`
   height: 32px;
   width: 32px;
   border-radius: 50%;
@@ -99,6 +114,8 @@ const BookmarkCircle = styled.div`
   align-items: center;
   justify-content: center;
   align-self: flex-end;
+  border: none;
+  cursor: pointer;
 `;
 
 const Details = styled.div`

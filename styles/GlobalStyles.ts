@@ -1,6 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle`
+
+
+const GlobalStyles = createGlobalStyle<{font: string}>`
 *{
     margin: 0;
     padding: 0;
@@ -11,7 +13,11 @@ body {
     width: 100vw;
     min-height: 100vh;
     background: #10141E;
- 
+    font-family: ${(props) => props.font};
+}
+
+button, input {
+    font-family: ${(props) => props.font}
 }
 `;
 
