@@ -6,19 +6,36 @@ import BookmarkFull from "../assets/images/icon-bookmark-full.svg";
 import TvSeriesIcon from "../assets/images/icon-category-tv.svg";
 import TvApi from "../data.json";
 import useData from "@/hooks/useData";
+import Search from "@/components/Search";
+import useSearchShow from "@/hooks/useSearchShow";
 
 function TvSeries() {
   const { data, setData } = useData();
+  const { searchShow, setSearchShow } = useSearchShow();
 
   useEffect(() => {
     setData(TvApi);
   }, [data]);
 
+  const searchTvSeries: React.ChangeEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    setSearchShow(event.target.value);
+  };
+
+  const filteredTvSeries =
+    searchShow.trim().length > 0
+      ? data.filter((element) =>
+          element.title.toLowerCase().includes(searchShow.toLowerCase())
+        )
+      : data;
+
   return (
     <Container>
+      <Search onChange={searchTvSeries} placeholder="Search for TV series" />
       <Title>TV Series</Title>
       <Content>
-        {data
+        {filteredTvSeries
           .filter((category) => category.category === "TV Series")
           .map((item, index) => {
             return (

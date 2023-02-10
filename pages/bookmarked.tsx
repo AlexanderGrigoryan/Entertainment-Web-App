@@ -6,19 +6,37 @@ import BookmarkFull from "../assets/images/icon-bookmark-full.svg";
 import MoviesIcon from "../assets/images/icon-category-movie.svg";
 import BookmarkedApi from "../data.json";
 import useData from "@/hooks/useData";
+import Search from "@/components/Search";
+import useSearchShow from "@/hooks/useSearchShow";
 
 function Bookmarked() {
   const { data, setData } = useData();
+  const { searchShow, setSearchShow } = useSearchShow();
 
   useEffect(() => {
     setData(BookmarkedApi);
   }, [data]);
 
+  const searchShows: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    setSearchShow(event.target.value);
+  };
+
+  const filteredShows =
+    searchShow.trim().length > 0
+      ? data.filter((element) =>
+          element.title.toLowerCase().includes(searchShow.toLowerCase())
+        )
+      : data;
+
   return (
     <Container>
+      <Search
+        onChange={searchShows}
+        placeholder="Search for bookmarked shows"
+      />
       <Movies>
         <Title>Bookmarked Movies</Title>
-        {data
+        {filteredShows
           .filter(
             (category) => category.category === "Movie" && category.isBookmarked
           )
@@ -69,7 +87,7 @@ function Bookmarked() {
 
       <TvSeries>
         <Title>Bookmarked Tv Series</Title>
-        {data
+        {filteredShows
           .filter(
             (category) =>
               category.category === "TV Series" && category.isBookmarked
@@ -79,7 +97,20 @@ function Bookmarked() {
               <>
                 <BookmarkedTv key={index}>
                   <TrendingItem image={item.thumbnail.regular.small}>
-                    <BookmarkButton>
+                    <BookmarkButton
+                      onClick={() => {
+                        const bookmarkedData = [...data];
+                        const dataIndex = bookmarkedData.findIndex(
+                          (element) => element.title === item.title
+                        );
+                        if (bookmarkedData[dataIndex].isBookmarked) {
+                          bookmarkedData[dataIndex].isBookmarked = false;
+                        } else {
+                          bookmarkedData[dataIndex].isBookmarked = true;
+                        }
+                        setData(bookmarkedData);
+                      }}
+                    >
                       {item.isBookmarked ? (
                         <Image src={BookmarkFull} alt="empty bookmark" />
                       ) : (
@@ -141,7 +172,6 @@ const Title = styled.h2`
   font-weight: 300;
   line-height: 25px;
   letter-spacing: -0.3125px;
-  /* margin-bottom: 24px; */
   color: #ffffff;
 `;
 

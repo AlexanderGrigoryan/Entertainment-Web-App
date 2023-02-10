@@ -17,7 +17,6 @@ export default function App({ Component, pageProps }: AppProps) {
       <GlobalStyles font={outfit.style.fontFamily} />
       <Navigation />
       <Container>
-        <Search />
         <Component {...pageProps} />
       </Container>
     </main>

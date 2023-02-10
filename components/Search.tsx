@@ -3,14 +3,19 @@ import styled from "styled-components";
 import SearchIcon from "../assets/images/icon-search.svg";
 import Image from "next/image";
 
-function Search() {
+interface SearchProps {
+  placeholder: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+function Search({ placeholder, onChange }: SearchProps) {
   return (
     <Container>
       <Form>
         <Button>
           <Image src={SearchIcon} alt="search icon" />
         </Button>
-        <Input type="text" placeholder="Search for movies or TV series" />
+        <Input onChange={onChange} type="search" placeholder={placeholder} />
       </Form>
     </Container>
   );
@@ -26,7 +31,7 @@ const Form = styled.form`
   display: flex;
   column-gap: 16px;
   align-items: center;
-  width: 257px;
+  width: 100%;
   height: 24px;
 `;
 
@@ -38,7 +43,7 @@ const Button = styled.button`
 
 const Input = styled.input`
   height: 100%;
-  width: 214px;
+  width: 100%;
   font-size: 16px;
   font-weight: 300;
   line-height: 20px;

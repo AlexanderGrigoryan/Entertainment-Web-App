@@ -2,6 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
 import BookmarkEmpty from "../assets/images/icon-bookmark-empty.svg";
+import BookmarkFull from "../assets/images/icon-bookmark-full.svg";
 import Movies from "../assets/images/icon-category-movie.svg";
 import data from "../data.json";
 
@@ -16,7 +17,11 @@ function Trending() {
             return (
               <TrendingItem key={index} image={item.thumbnail.trending?.small}>
                 <BookmarkCircle>
-                  <Image src={BookmarkEmpty} alt="empty bookmark" />
+                  {item.isBookmarked ? (
+                    <Image src={BookmarkFull} alt="empty bookmark" />
+                  ) : (
+                    <Image src={BookmarkEmpty} alt="empty bookmark" />
+                  )}
                 </BookmarkCircle>
                 <Details>
                   <Information>
@@ -41,7 +46,9 @@ function Trending() {
 
 export default Trending;
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin-bottom: 24px;
+`;
 
 const SliderBox = styled.div`
   display: flex;
@@ -71,7 +78,7 @@ const TrendingItem = styled.div(
   `
 );
 
-const BookmarkCircle = styled.div`
+const BookmarkCircle = styled.button`
   height: 32px;
   width: 32px;
   border-radius: 50%;
@@ -80,6 +87,8 @@ const BookmarkCircle = styled.div`
   align-items: center;
   justify-content: center;
   align-self: flex-end;
+  border: none;
+  cursor: pointer;
 `;
 
 const Details = styled.div`

@@ -1,11 +1,36 @@
+import Search from "@/components/Search";
 import Trending from "@/components/Trending";
 import useData from "@/hooks/useData";
+import useSearchShow from "@/hooks/useSearchShow";
 import Head from "next/head";
-import styled from "styled-components";
+import { useEffect } from "react";
+import styled, { css } from "styled-components";
+import AllShowsApi from "../data.json";
+import Image from "next/image";
+import BookmarkEmpty from "../assets/images/icon-bookmark-empty.svg";
+import BookmarkFull from "../assets/images/icon-bookmark-full.svg";
+import TvSeriesIcon from "../assets/images/icon-category-tv.svg";
+import MoviesIcon from "../assets/images/icon-category-movie.svg";
 
 export default function Home() {
   const { data, setData } = useData();
-  console.log(data);
+  const { searchShow, setSearchShow } = useSearchShow();
+
+  useEffect(() => {
+    setData(AllShowsApi);
+  }, [data]);
+
+  const searchShows: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    setSearchShow(event.target.value);
+  };
+
+  const filteredShows =
+    searchShow.trim().length > 0
+      ? data.filter((element) =>
+          element.title.toLowerCase().includes(searchShow.toLowerCase())
+        )
+      : data;
+
   return (
     <>
       <Head>
@@ -15,10 +40,154 @@ export default function Home() {
         <link rel="icon" href="/assets/favicon-32x32.png" />
       </Head>
       <MainContainer>
+        <Search
+          onChange={searchShows}
+          placeholder="Search for movies or TV series"
+        />
         <Trending />
+        <Title>Recommended for you</Title>
+        <Content>
+          {filteredShows
+            .filter((category) => category.isTrending === false)
+            .map((item, index) => {
+              return (
+                <>
+                  <ContentBox key={index}>
+                    <TrendingItem image={item.thumbnail.regular.small}>
+                      <BookmarkButton
+                        onClick={() => {
+                          const bookmarkedData = [...data];
+                          const dataIndex = bookmarkedData.findIndex(
+                            (element) => element.title === item.title
+                          );
+                          if (bookmarkedData[dataIndex].isBookmarked) {
+                            bookmarkedData[dataIndex].isBookmarked = false;
+                          } else {
+                            bookmarkedData[dataIndex].isBookmarked = true;
+                          }
+                          setData(bookmarkedData);
+                        }}
+                      >
+                        {item.isBookmarked ? (
+                          <Image src={BookmarkFull} alt="empty bookmark" />
+                        ) : (
+                          <Image src={BookmarkEmpty} alt="empty bookmark" />
+                        )}
+                      </BookmarkButton>
+                    </TrendingItem>
+                    <Details>
+                      <Information>
+                        <Text>{item.year}</Text>
+                        <Circle></Circle>
+                        <Info>
+                          <CategoryImage src={MoviesIcon} alt="movies" />
+                          <Text>{item.category}</Text>
+                        </Info>
+                        <Circle></Circle>
+                        <Text>{item.rating}</Text>
+                      </Information>
+                      <Name>{item.title}</Name>
+                    </Details>
+                  </ContentBox>
+                </>
+              );
+            })}
+        </Content>
       </MainContainer>
     </>
   );
 }
 
-const MainContainer = styled.main``;
+const MainContainer = styled.main`
+  padding-bottom: 40px;
+`;
+
+const Container = styled.div`
+  margin-bottom: 40px;
+`;
+
+const Content = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 15px;
+  row-gap: 16px;
+`;
+
+const ContentBox = styled.div``;
+
+const Title = styled.h2`
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 25px;
+  letter-spacing: -0.3125px;
+  margin-bottom: 24px;
+  color: #ffffff;
+`;
+
+const TrendingItem = styled.div(
+  (props: { image: string }) => css`
+    width: 164px;
+    height: 110px;
+    border-radius: 8px;
+    padding: 8px 8px 0 0;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    background: url(${props.image});
+  `
+);
+
+const BookmarkButton = styled.button`
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background: rgba(16, 20, 30, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-end;
+  border: none;
+  cursor: pointer;
+`;
+
+const Details = styled.div`
+  margin-top: 8px;
+`;
+
+const Information = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+`;
+
+const Info = styled.div`
+  display: flex;
+  column-gap: 6px;
+`;
+
+const Text = styled.p`
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 15px;
+  color: rgba(255, 255, 255, 0.5);
+`;
+
+const Circle = styled.div`
+  height: 3px;
+  width: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+`;
+
+const CategoryImage = styled(Image)`
+  width: 12px;
+  height: 12px;
+`;
+
+const Name = styled.p`
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 19px;
+  margin-top: 5px;
+  color: #ffffff;
+`;

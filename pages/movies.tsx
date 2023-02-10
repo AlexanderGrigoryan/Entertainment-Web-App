@@ -6,19 +6,34 @@ import BookmarkFull from "../assets/images/icon-bookmark-full.svg";
 import MoviesIcon from "../assets/images/icon-category-movie.svg";
 import MovieApi from "../data.json";
 import useData from "@/hooks/useData";
+import Search from "@/components/Search";
+import useSearchShow from "@/hooks/useSearchShow";
 
 function Movies() {
   const { data, setData } = useData();
+  const { searchShow, setSearchShow } = useSearchShow();
 
   useEffect(() => {
     setData(MovieApi);
   }, [data]);
 
+  const searchMovies: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    setSearchShow(event.target.value);
+  };
+
+  const filteredMovies =
+    searchShow.trim().length > 0
+      ? data.filter((element) =>
+          element.title.toLowerCase().includes(searchShow.toLowerCase())
+        )
+      : data;
+
   return (
     <Container>
+      <Search onChange={searchMovies} placeholder="Search for movies" />
       <Title>Movies</Title>
       <Content>
-        {data
+        {filteredMovies
           .filter((category) => category.category === "Movie")
           .map((item, index) => {
             return (

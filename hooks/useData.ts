@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import dataBase from "../data.json"
+import { useState } from 'react'
+
 import { DataType } from "@/types";
 
 
