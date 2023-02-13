@@ -26,7 +26,15 @@ function Trending() {
     <Container>
       <Title>Trending</Title>
       {/* <SliderBox> */}
-      <Swiper scrollbar={{ draggable: true }} spaceBetween={16}>
+      <Swiper
+        breakpoints={{
+          768: {
+            spaceBetween: 40,
+          },
+        }}
+        scrollbar={{ draggable: true }}
+        spaceBetween={16}
+      >
         {data
           .filter((trend) => trend.isTrending === true)
           .map((item, index) => {
@@ -102,6 +110,13 @@ const Title = styled.h2`
   letter-spacing: -0.3125px;
   margin-bottom: 16px;
   color: #ffffff;
+
+  @media screen and (min-width: 768px) {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.5px;
+    margin-bottom: 25px;
+  }
 `;
 
 const TrendingItem = styled.div(
@@ -114,6 +129,12 @@ const TrendingItem = styled.div(
     display: flex;
     flex-direction: column;
     background: url(${props.image});
+
+    @media screen and (min-width: 768px) {
+      width: 470px;
+      height: 230px;
+      padding: 16px 24px 24px 24px;
+    }
   `
 );
 
@@ -132,6 +153,10 @@ const BookmarkCircle = styled.button`
 
 const Details = styled.div`
   padding-top: 45px;
+
+  @media screen and (min-width: 768px) {
+    padding-top: 106px;
+  }
 `;
 
 const Information = styled.div`
@@ -150,6 +175,11 @@ const Text = styled.p`
   font-weight: 300;
   line-height: 15px;
   color: rgba(255, 255, 255, 0.5);
+
+  @media screen and (min-width: 768px) {
+    font-size: 15px;
+    line-height: 19px;
+  }
 `;
 
 const Circle = styled.div`
@@ -170,4 +200,9 @@ const Name = styled.p`
   line-height: 19px;
   margin-top: 5px;
   color: #ffffff;
+
+  @media screen and (min-width: 768px) {
+    font-size: 24px;
+    line-height: 30px;
+  }
 `;

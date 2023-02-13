@@ -25,4 +25,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
 const Container = styled.div`
   padding: 0 16px;
+
+  @media screen and (min-width: 768px) {
+    padding: 0 24px;
+  }
 `;

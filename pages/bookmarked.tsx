@@ -35,8 +35,9 @@ function Bookmarked() {
         onChange={searchShows}
         placeholder="Search for bookmarked shows"
       />
+
+      <Title>Bookmarked Movies</Title>
       <Movies>
-        <Title>Bookmarked Movies</Title>
         {filteredShows
           .filter(
             (category) => category.category === "Movie" && category.isBookmarked
@@ -86,8 +87,8 @@ function Bookmarked() {
           })}
       </Movies>
 
+      <Title>Bookmarked Tv Series</Title>
       <TvSeries>
-        <Title>Bookmarked Tv Series</Title>
         {filteredShows
           .filter(
             (category) =>
@@ -152,6 +153,13 @@ const Movies = styled.div`
   flex-wrap: wrap;
   column-gap: 15px;
   row-gap: 16px;
+  margin: 24px 0;
+
+  @media screen and (min-width: 768px) {
+    column-gap: 30px;
+    row-gap: 24px;
+    margin: 24px 0 48px 0;
+  }
 `;
 
 const TvSeries = styled.div`
@@ -160,6 +168,11 @@ const TvSeries = styled.div`
   column-gap: 15px;
   row-gap: 16px;
   margin-top: 24px;
+
+  @media screen and (min-width: 768px) {
+    column-gap: 30px;
+    row-gap: 24px;
+  }
 `;
 
 const BookmarkedMovies = styled.div``;
@@ -174,6 +187,12 @@ const Title = styled.h2`
   line-height: 25px;
   letter-spacing: -0.3125px;
   color: #ffffff;
+
+  @media screen and (min-width: 768px) {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.5px;
+  }
 `;
 
 const TrendingItem = styled.div(
@@ -186,6 +205,12 @@ const TrendingItem = styled.div(
     display: flex;
     flex-direction: column;
     background: url(${props.image});
+
+    @media screen and (min-width: 768px) {
+      width: 220px;
+      height: 140px;
+      padding: 16px 16px 0 0;
+    }
   `
 );
 
@@ -218,10 +243,15 @@ const Info = styled.div`
 `;
 
 const Text = styled.p`
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 300;
-  line-height: 15px;
+  line-height: 13.86px;
   color: rgba(255, 255, 255, 0.5);
+
+  @media screen and (min-width: 768px) {
+    font-size: 13px;
+    line-height: 16px;
+  }
 `;
 
 const Circle = styled.div`
@@ -232,14 +262,24 @@ const Circle = styled.div`
 `;
 
 const CategoryImage = styled(Image)`
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
+
+  @media screen and (min-width: 768px) {
+    width: 12px;
+    height: 12px;
+  }
 `;
 
 const Name = styled.p`
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 19px;
+  line-height: 17.64px;
   margin-top: 5px;
   color: #ffffff;
+
+  @media screen and (min-width: 768px) {
+    font-size: 18px;
+    line-height: 23px;
+  }
 `;

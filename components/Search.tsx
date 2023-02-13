@@ -13,7 +13,7 @@ function Search({ placeholder, onChange }: SearchProps) {
     <Container>
       <Form>
         <Button>
-          <Image src={SearchIcon} alt="search icon" />
+          <SearchImage src={SearchIcon} alt="search icon" />
         </Button>
         <Input onChange={onChange} type="search" placeholder={placeholder} />
       </Form>
@@ -33,12 +33,27 @@ const Form = styled.form`
   align-items: center;
   width: 100%;
   height: 24px;
+
+  @media screen and (min-width: 768px) {
+    height: 30px;
+    column-gap: 28px;
+  }
 `;
 
 const Button = styled.button`
   background: inherit;
   border: none;
   cursor: pointer;
+`;
+
+const SearchImage = styled(Image)`
+  width: 18px;
+  height: 18px;
+
+  @media screen and (min-width: 768px) {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 const Input = styled.input`
@@ -61,5 +76,15 @@ const Input = styled.input`
     font-weight: 300;
     line-height: 20px;
     color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media screen and (min-width: 768px) {
+    font-size: 24px;
+    line-height: 30px;
+
+    &::placeholder {
+      font-size: 24px;
+      line-height: 30px;
+    }
   }
 `;
