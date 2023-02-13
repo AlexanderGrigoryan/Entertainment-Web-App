@@ -1,45 +1,84 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
 import BookmarkEmpty from "../assets/images/icon-bookmark-empty.svg";
 import BookmarkFull from "../assets/images/icon-bookmark-full.svg";
-import Movies from "../assets/images/icon-category-movie.svg";
-import data from "../data.json";
+import TvSeriesIcon from "../assets/images/icon-category-tv.svg";
+import MoviesIcon from "../assets/images/icon-category-movie.svg";
+import TrendingApi from "../data.json";
+import useData from "@/hooks/useData";
+// import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
+// import "@splidejs/react-splide/css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 function Trending() {
+  const { data, setData } = useData();
+
+  useEffect(() => {
+    setData(TrendingApi);
+  }, [data]);
+
   return (
     <Container>
       <Title>Trending</Title>
-      <SliderBox>
+      {/* <SliderBox> */}
+      <Swiper scrollbar={{ draggable: true }} spaceBetween={16}>
         {data
           .filter((trend) => trend.isTrending === true)
           .map((item, index) => {
             return (
-              <TrendingItem key={index} image={item.thumbnail.trending?.small}>
-                <BookmarkCircle>
-                  {item.isBookmarked ? (
-                    <Image src={BookmarkFull} alt="empty bookmark" />
-                  ) : (
-                    <Image src={BookmarkEmpty} alt="empty bookmark" />
-                  )}
-                </BookmarkCircle>
-                <Details>
-                  <Information>
-                    <Text>{item.year}</Text>
-                    <Circle></Circle>
-                    <Info>
-                      <CategoryImage src={Movies} alt="movies" />
-                      <Text>{item.category}</Text>
-                    </Info>
-                    <Circle></Circle>
-                    <Text>{item.rating}</Text>
-                  </Information>
-                  <Name>{item.title}</Name>
-                </Details>
-              </TrendingItem>
+              <SwiperSlide>
+                <TrendingItem
+                  key={index}
+                  image={item.thumbnail.trending?.small}
+                >
+                  <BookmarkCircle
+                    onClick={() => {
+                      const bookmarkedData = [...data];
+                      const dataIndex = bookmarkedData.findIndex(
+                        (element) => element.title === item.title
+                      );
+                      if (bookmarkedData[dataIndex].isBookmarked) {
+                        bookmarkedData[dataIndex].isBookmarked = false;
+                      } else {
+                        bookmarkedData[dataIndex].isBookmarked = true;
+                      }
+                      setData(bookmarkedData);
+                    }}
+                  >
+                    {item.isBookmarked ? (
+                      <Image src={BookmarkFull} alt="empty bookmark" />
+                    ) : (
+                      <Image src={BookmarkEmpty} alt="empty bookmark" />
+                    )}
+                  </BookmarkCircle>
+                  <Details>
+                    <Information>
+                      <Text>{item.year}</Text>
+                      <Circle></Circle>
+                      <Info>
+                        {item.category === "Movie" ? (
+                          <CategoryImage src={MoviesIcon} alt="movies" />
+                        ) : (
+                          <CategoryImage src={TvSeriesIcon} alt="tv series" />
+                        )}
+                        <Text>{item.category}</Text>
+                      </Info>
+                      <Circle></Circle>
+                      <Text>{item.rating}</Text>
+                    </Information>
+                    <Name>{item.title}</Name>
+                  </Details>
+                </TrendingItem>
+              </SwiperSlide>
             );
           })}
-      </SliderBox>
+      </Swiper>
+      {/* </SliderBox> */}
     </Container>
   );
 }

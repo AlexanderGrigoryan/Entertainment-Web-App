@@ -4,6 +4,7 @@ import Image from "next/image";
 import BookmarkEmpty from "../assets/images/icon-bookmark-empty.svg";
 import BookmarkFull from "../assets/images/icon-bookmark-full.svg";
 import MoviesIcon from "../assets/images/icon-category-movie.svg";
+import TvSeriesIcon from "../assets/images/icon-category-tv.svg";
 import BookmarkedApi from "../data.json";
 import useData from "@/hooks/useData";
 import Search from "@/components/Search";
@@ -123,7 +124,7 @@ function Bookmarked() {
                       <Text>{item.year}</Text>
                       <Circle></Circle>
                       <Info>
-                        <CategoryImage src={MoviesIcon} alt="movies" />
+                        <CategoryImage src={TvSeriesIcon} alt="movies" />
                         <Text>{item.category}</Text>
                       </Info>
                       <Circle></Circle>

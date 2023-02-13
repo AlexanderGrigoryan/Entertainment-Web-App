@@ -19,6 +19,10 @@ body {
 button, input {
     font-family: ${(props) => props.font}
 }
+
+.swiper-slide {
+    flex-shrink: 1;
+}
 `;
 
 export default GlobalStyles;

@@ -80,7 +80,11 @@ export default function Home() {
                         <Text>{item.year}</Text>
                         <Circle></Circle>
                         <Info>
-                          <CategoryImage src={MoviesIcon} alt="movies" />
+                          {item.category === "Movie" ? (
+                            <CategoryImage src={MoviesIcon} alt="movies" />
+                          ) : (
+                            <CategoryImage src={TvSeriesIcon} alt="tv series" />
+                          )}
                           <Text>{item.category}</Text>
                         </Info>
                         <Circle></Circle>
