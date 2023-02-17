@@ -101,6 +101,11 @@ const Content = styled.div`
     column-gap: 30px;
     row-gap: 24px;
   }
+
+  @media screen and (min-width: 1024px) {
+    column-gap: 40px;
+    row-gap: 32px;
+  }
 `;
 
 const ContentBox = styled.div``;
@@ -134,6 +139,12 @@ const TrendingItem = styled.div(
     @media screen and (min-width: 768px) {
       width: 220px;
       height: 140px;
+      padding: 16px 16px 0 0;
+    }
+
+    @media screen and (min-width: 1024px) {
+      width: 280px;
+      height: 174px;
       padding: 16px 16px 0 0;
     }
   `

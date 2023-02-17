@@ -25,6 +25,10 @@ export default Search;
 
 const Container = styled.div`
   margin: 24px 0;
+
+  @media screen and (min-width: 768px) {
+    margin: 64px 0 36px;
+  }
 `;
 
 const Form = styled.form`

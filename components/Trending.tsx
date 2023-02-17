@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
 import BookmarkEmpty from "../assets/images/icon-bookmark-empty.svg";
@@ -7,13 +7,8 @@ import TvSeriesIcon from "../assets/images/icon-category-tv.svg";
 import MoviesIcon from "../assets/images/icon-category-movie.svg";
 import TrendingApi from "../data.json";
 import useData from "@/hooks/useData";
-// import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-// import "@splidejs/react-splide/css";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
 
 function Trending() {
   const { data, setData } = useData();
@@ -22,71 +17,89 @@ function Trending() {
     setData(TrendingApi);
   }, [data]);
 
+  const mediaQueryType: "min" | "max" | undefined = "min";
+
+  const options = {
+    autoplay: true,
+    interval: 2000,
+    fixedWidth: 370,
+    rewind: true,
+    gap: -116,
+    pagination: false,
+    arrows: false,
+    mediaQuery: mediaQueryType,
+    breakpoints: {
+      768: {
+        fixedWidth: 470,
+        gap: 40,
+      },
+    },
+  };
+
   return (
     <Container>
       <Title>Trending</Title>
-      {/* <SliderBox> */}
-      <Swiper
-        breakpoints={{
-          768: {
-            spaceBetween: 40,
-          },
-        }}
-        scrollbar={{ draggable: true }}
-        spaceBetween={16}
+      <Splide
+        options={options}
+        aria-labelledby="autoplay-example-heading"
+        hasTrack={false}
       >
-        {data
-          .filter((trend) => trend.isTrending === true)
-          .map((item, index) => {
-            return (
-              <SwiperSlide>
-                <TrendingItem
-                  key={index}
-                  image={item.thumbnail.trending?.small}
-                >
-                  <BookmarkCircle
-                    onClick={() => {
-                      const bookmarkedData = [...data];
-                      const dataIndex = bookmarkedData.findIndex(
-                        (element) => element.title === item.title
-                      );
-                      if (bookmarkedData[dataIndex].isBookmarked) {
-                        bookmarkedData[dataIndex].isBookmarked = false;
-                      } else {
-                        bookmarkedData[dataIndex].isBookmarked = true;
-                      }
-                      setData(bookmarkedData);
-                    }}
+        <CustomSplideTrack>
+          {data
+            .filter((trend) => trend.isTrending === true)
+            .map((item, index) => {
+              return (
+                <SplideSlide>
+                  <TrendingItem
+                    key={index}
+                    image={
+                      item.thumbnail.trending?.small ||
+                      item.thumbnail.regular.small
+                    }
                   >
-                    {item.isBookmarked ? (
-                      <Image src={BookmarkFull} alt="empty bookmark" />
-                    ) : (
-                      <Image src={BookmarkEmpty} alt="empty bookmark" />
-                    )}
-                  </BookmarkCircle>
-                  <Details>
-                    <Information>
-                      <Text>{item.year}</Text>
-                      <Circle></Circle>
-                      <Info>
-                        {item.category === "Movie" ? (
-                          <CategoryImage src={MoviesIcon} alt="movies" />
-                        ) : (
-                          <CategoryImage src={TvSeriesIcon} alt="tv series" />
-                        )}
-                        <Text>{item.category}</Text>
-                      </Info>
-                      <Circle></Circle>
-                      <Text>{item.rating}</Text>
-                    </Information>
-                    <Name>{item.title}</Name>
-                  </Details>
-                </TrendingItem>
-              </SwiperSlide>
-            );
-          })}
-      </Swiper>
-      {/* </SliderBox> */}
+                    <BookmarkCircle
+                      onClick={() => {
+                        const bookmarkedData = [...data];
+                        const dataIndex = bookmarkedData.findIndex(
+                          (element) => element.title === item.title
+                        );
+                        if (bookmarkedData[dataIndex].isBookmarked) {
+                          bookmarkedData[dataIndex].isBookmarked = false;
+                        } else {
+                          bookmarkedData[dataIndex].isBookmarked = true;
+                        }
+                        setData(bookmarkedData);
+                      }}
+                    >
+                      {item.isBookmarked ? (
+                        <Image src={BookmarkFull} alt="empty bookmark" />
+                      ) : (
+                        <Image src={BookmarkEmpty} alt="empty bookmark" />
+                      )}
+                    </BookmarkCircle>
+                    <Details>
+                      <Information>
+                        <Text>{item.year}</Text>
+                        <Circle></Circle>
+                        <Info>
+                          {item.category === "Movie" ? (
+                            <CategoryImage src={MoviesIcon} alt="movies" />
+                          ) : (
+                            <CategoryImage src={TvSeriesIcon} alt="tv series" />
+                          )}
+                          <Text>{item.category}</Text>
+                        </Info>
+                        <Circle></Circle>
+                        <Text>{item.rating}</Text>
+                      </Information>
+                      <Name>{item.title}</Name>
+                    </Details>
+                  </TrendingItem>
+                </SplideSlide>
+              );
+            })}
+        </CustomSplideTrack>
+      </Splide>
     </Container>
   );
 }
@@ -95,12 +108,6 @@ export default Trending;
 
 const Container = styled.div`
   margin-bottom: 24px;
-`;
-
-const SliderBox = styled.div`
-  display: flex;
-  column-gap: 16px;
-  overflow: hidden;
 `;
 
 const Title = styled.h2`
@@ -121,7 +128,7 @@ const Title = styled.h2`
 
 const TrendingItem = styled.div(
   (props: { image: string | undefined }) => css`
-    width: 240px;
+    max-width: 240px;
     height: 140px;
     border-radius: 8px;
     padding: 8px 8px 16px 16px;
@@ -129,9 +136,11 @@ const TrendingItem = styled.div(
     display: flex;
     flex-direction: column;
     background: url(${props.image});
+    background-repeat: no-repeat;
+    background-size: cover;
 
     @media screen and (min-width: 768px) {
-      width: 470px;
+      max-width: 470px;
       height: 230px;
       padding: 16px 24px 24px 24px;
     }
@@ -205,4 +214,8 @@ const Name = styled.p`
     font-size: 24px;
     line-height: 30px;
   }
+`;
+
+const CustomSplideTrack = styled(SplideTrack)`
+  width: 100%;
 `;

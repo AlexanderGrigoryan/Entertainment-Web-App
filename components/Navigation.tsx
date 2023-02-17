@@ -9,6 +9,8 @@ import BookmarkIcon from "@/assets/svg/BookmarkIcon";
 import AvatarIcon from "@/assets/images/image-avatar.png";
 import Link from "next/link";
 
+
+
 function Navigation() {
   return (
     <Container>
@@ -39,6 +41,10 @@ export default Navigation;
 const Container = styled.div`
   @media screen and (min-width: 768px) {
     padding: 0 24px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    display: none;
   }
 `;
 

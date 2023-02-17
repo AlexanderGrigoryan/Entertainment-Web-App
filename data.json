@@ -107,7 +107,7 @@
     "category": "Movie",
     "rating": "E",
     "isBookmarked": false,
-    "isTrending": false
+    "isTrending": true
   },
   {
     "title": "The Diary",
@@ -167,7 +167,7 @@
     "category": "TV Series",
     "rating": "PG",
     "isBookmarked": false,
-    "isTrending": false
+    "isTrending": true
   },
   {
     "title": "Autosport the Series",

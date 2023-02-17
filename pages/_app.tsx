@@ -1,3 +1,4 @@
+import DesktopNavigation from "@/components/DesktopNavigation";
 import Navigation from "@/components/Navigation";
 import Search from "@/components/Search";
 import GlobalStyles from "@/styles/GlobalStyles";
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <GlobalStyles font={outfit.style.fontFamily} />
       <Navigation />
       <Container>
+        <DesktopNavigation />
         <Component {...pageProps} />
       </Container>
     </main>
@@ -28,5 +30,10 @@ const Container = styled.div`
 
   @media screen and (min-width: 768px) {
     padding: 0 24px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    display: flex;
+    padding: 0;
   }
 `;

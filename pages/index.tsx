@@ -104,6 +104,7 @@ export default function Home() {
 
 const MainContainer = styled.main`
   padding-bottom: 40px;
+  width: 100%;
 
   @media screen and (min-width: 768px) {
     padding-bottom: 56px;
@@ -119,10 +120,16 @@ const Content = styled.div`
   flex-wrap: wrap;
   column-gap: 15px;
   row-gap: 16px;
+  width: 100%;
 
   @media screen and (min-width: 768px) {
     column-gap: 30px;
     row-gap: 24px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    column-gap: 40px;
+    row-gap: 32px;
   }
 `;
 
@@ -157,6 +164,12 @@ const TrendingItem = styled.div(
     @media screen and (min-width: 768px) {
       width: 220px;
       height: 140px;
+      padding: 16px 16px 0 0;
+    }
+
+    @media screen and (min-width: 1024px) {
+      width: 280px;
+      height: 174px;
       padding: 16px 16px 0 0;
     }
   `

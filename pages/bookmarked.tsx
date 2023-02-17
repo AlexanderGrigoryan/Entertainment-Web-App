@@ -160,6 +160,11 @@ const Movies = styled.div`
     row-gap: 24px;
     margin: 24px 0 48px 0;
   }
+
+  @media screen and (min-width: 1024px) {
+    column-gap: 40px;
+    row-gap: 32px;
+  }
 `;
 
 const TvSeries = styled.div`
@@ -172,6 +177,11 @@ const TvSeries = styled.div`
   @media screen and (min-width: 768px) {
     column-gap: 30px;
     row-gap: 24px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    column-gap: 40px;
+    row-gap: 32px;
   }
 `;
 
@@ -209,6 +219,12 @@ const TrendingItem = styled.div(
     @media screen and (min-width: 768px) {
       width: 220px;
       height: 140px;
+      padding: 16px 16px 0 0;
+    }
+
+    @media screen and (min-width: 1024px) {
+      width: 280px;
+      height: 174px;
       padding: 16px 16px 0 0;
     }
   `
