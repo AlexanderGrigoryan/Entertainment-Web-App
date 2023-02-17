@@ -8,26 +8,28 @@ import MoviesIcon from "@/assets/svg/MoviesIcon";
 import BookmarkIcon from "@/assets/svg/BookmarkIcon";
 import AvatarIcon from "@/assets/images/image-avatar.png";
 import Link from "next/link";
-
-
+import { useRouter } from "next/router";
 
 function Navigation() {
+  const router = useRouter();
+  const pathname = router.pathname;
+
   return (
     <Container>
       <Content>
         <LogoImage src={Logo} alt="logo" />
         <Nav>
           <Link href="/">
-            <HomeIcon />
+            <HomeIcon pathname={pathname} />
           </Link>
           <Link href="/movies">
-            <MoviesIcon />
+            <MoviesIcon pathname={pathname} />
           </Link>
           <Link href="/tv-series">
-            <TvSeriesIcon />
+            <TvSeriesIcon pathname={pathname} />
           </Link>
           <Link href="/bookmarked">
-            <BookmarkIcon />
+            <BookmarkIcon pathname={pathname} />
           </Link>
         </Nav>
         <AvatarImage src={AvatarIcon} alt="avatar logo" />
