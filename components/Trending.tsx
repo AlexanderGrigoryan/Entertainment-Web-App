@@ -7,6 +7,7 @@ import TvSeriesIcon from "../assets/images/icon-category-tv.svg";
 import MoviesIcon from "../assets/images/icon-category-movie.svg";
 import TrendingApi from "../data.json";
 import useData from "@/hooks/useData";
+import PlayIcon from "../assets/images/icon-play.svg";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 
@@ -77,6 +78,10 @@ function Trending() {
                         <Image src={BookmarkEmpty} alt="empty bookmark" />
                       )}
                     </BookmarkCircle>
+                    <PlayButton>
+                      <Image src={PlayIcon} alt="play icon" />
+                      <PlayButtonText>Play</PlayButtonText>
+                    </PlayButton>
                     <Details>
                       <Information>
                         <Text>{item.year}</Text>
@@ -138,11 +143,23 @@ const TrendingItem = styled.div(
     background: url(${props.image});
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
+
+    &:hover {
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url(${props.image});
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
 
     @media screen and (min-width: 768px) {
       max-width: 470px;
       height: 230px;
       padding: 16px 24px 24px 24px;
+
+      &:hover ${PlayButton} {
+        display: flex;
+      }
     }
   `
 );
@@ -158,6 +175,35 @@ const BookmarkCircle = styled.button`
   align-self: flex-end;
   border: none;
   cursor: pointer;
+`;
+
+const PlayButton = styled.button`
+  width: 117px;
+  height: 48px;
+  border-radius: 28.5px;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  display: none;
+  justify-content: left;
+  align-items: center;
+  column-gap: 19px;
+  padding-left: 9px;
+  align-self: center;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: all ease 0.5s;
+  transform: translate(0, 20px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -90%);
+`;
+
+const PlayButtonText = styled.p`
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 23px;
+  color: #ffffff;
 `;
 
 const Details = styled.div`

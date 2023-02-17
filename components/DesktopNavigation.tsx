@@ -64,6 +64,7 @@ const Content = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 36px 32px 32px 32px;
+    margin-left: 36px;
   }
 `;
 
