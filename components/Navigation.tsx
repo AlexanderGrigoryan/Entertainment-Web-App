@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import Logo from "../assets/images/logo.svg";
-import HomeIcon from "@/assets/svg/HomeIcon";
-import TvSeriesIcon from "@/assets/svg/TvSeriesIcon";
-import MoviesIcon from "@/assets/svg/MoviesIcon";
-import BookmarkIcon from "@/assets/svg/BookmarkIcon";
-import AvatarIcon from "@/assets/images/image-avatar.png";
+import HomeIcon from "../svg/HomeIcon";
+import TvSeriesIcon from "../svg/TvSeriesIcon";
+import MoviesIcon from "../svg/MoviesIcon";
+import BookmarkIcon from "../svg/BookmarkIcon";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -17,7 +15,7 @@ function Navigation() {
   return (
     <Container>
       <Content>
-        <LogoImage src={Logo} alt="logo" />
+        <LogoImage width={25} height={20} src="/assets/logo.svg" alt="logo" />
         <Nav>
           <Link href="/">
             <HomeIcon pathname={pathname} />
@@ -32,7 +30,12 @@ function Navigation() {
             <BookmarkIcon pathname={pathname} />
           </Link>
         </Nav>
-        <AvatarImage src={AvatarIcon} alt="avatar logo" />
+        <AvatarImage
+          width={24}
+          height={24}
+          src="/assets/image-avatar.png"
+          alt="avatar logo"
+        />
       </Content>
     </Container>
   );
@@ -79,12 +82,6 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   column-gap: 24px;
-`;
-
-const Button = styled.button`
-  background: inherit;
-  border: none;
-  cursor: pointer;
 `;
 
 const AvatarImage = styled(Image)`

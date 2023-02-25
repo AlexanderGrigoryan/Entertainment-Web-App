@@ -1,7 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 
-
-
 const GlobalStyles = createGlobalStyle<{font: string}>`
 *{
     margin: 0;
@@ -20,9 +18,6 @@ button, input {
     font-family: ${(props) => props.font}
 }
 
-.swiper-slide {
-    flex-shrink: 1;
-}
 `;
 
 export default GlobalStyles;

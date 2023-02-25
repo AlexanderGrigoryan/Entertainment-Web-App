@@ -1,10 +1,9 @@
+import styled from "styled-components";
+import GlobalStyles from "@/styles/GlobalStyles";
 import DesktopNavigation from "@/components/DesktopNavigation";
 import Navigation from "@/components/Navigation";
-import Search from "@/components/Search";
-import GlobalStyles from "@/styles/GlobalStyles";
 import { Outfit } from "@next/font/google";
 import type { AppProps } from "next/app";
-import styled from "styled-components";
 
 export const outfit = Outfit({
   weight: ["300", "500"],

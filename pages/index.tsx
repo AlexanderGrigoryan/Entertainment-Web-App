@@ -1,17 +1,12 @@
-import Search from "@/components/Search";
-import Trending from "@/components/Trending";
+import styled, { css } from "styled-components";
+import { useEffect } from "react";
+import Head from "next/head";
+import Image from "next/image";
 import useData from "@/hooks/useData";
 import useSearchShow from "@/hooks/useSearchShow";
-import Head from "next/head";
-import { useEffect } from "react";
-import styled, { css } from "styled-components";
+import Search from "@/components/Search";
+import Trending from "@/components/Trending";
 import AllShowsApi from "../data.json";
-import Image from "next/image";
-import BookmarkEmpty from "../assets/images/icon-bookmark-empty.svg";
-import BookmarkFull from "../assets/images/icon-bookmark-full.svg";
-import TvSeriesIcon from "../assets/images/icon-category-tv.svg";
-import MoviesIcon from "../assets/images/icon-category-movie.svg";
-import PlayIcon from "../assets/images/icon-play.svg";
 
 export default function Home() {
   const { data, setData } = useData();
@@ -74,13 +69,28 @@ export default function Home() {
                         }}
                       >
                         {item.isBookmarked ? (
-                          <Image src={BookmarkFull} alt="empty bookmark" />
+                          <Image
+                            width={11.67}
+                            height={14}
+                            src="/assets/icon-bookmark-full.svg"
+                            alt="empty bookmark"
+                          />
                         ) : (
-                          <Image src={BookmarkEmpty} alt="empty bookmark" />
+                          <Image
+                            width={11.67}
+                            height={14}
+                            src="/assets/icon-bookmark-empty.svg"
+                            alt="empty bookmark"
+                          />
                         )}
                       </BookmarkButton>
                       <PlayButton>
-                        <Image src={PlayIcon} alt="play icon" />
+                        <Image
+                          width={30}
+                          height={30}
+                          src="/assets/icon-play.svg"
+                          alt="play icon"
+                        />
                         <PlayButtonText>Play</PlayButtonText>
                       </PlayButton>
                     </TrendingItem>
@@ -90,9 +100,19 @@ export default function Home() {
                         <Circle></Circle>
                         <Info>
                           {item.category === "Movie" ? (
-                            <CategoryImage src={MoviesIcon} alt="movies" />
+                            <CategoryImage
+                              width={10}
+                              height={10}
+                              src="/assets/icon-category-movie.svg"
+                              alt="movies"
+                            />
                           ) : (
-                            <CategoryImage src={TvSeriesIcon} alt="tv series" />
+                            <CategoryImage
+                              width={10}
+                              height={10}
+                              src="/assets/icon-category-tv.svg"
+                              alt="tv series"
+                            />
                           )}
                           <Text>{item.category}</Text>
                         </Info>
@@ -122,10 +142,6 @@ const MainContainer = styled.main`
   @media screen and (min-width: 1024px) {
     margin-left: 36px;
   }
-`;
-
-const Container = styled.div`
-  margin-bottom: 40px;
 `;
 
 const Content = styled.div`
@@ -272,6 +288,11 @@ const Information = styled.div`
   display: flex;
   align-items: center;
   column-gap: 8px;
+  height: 14px;
+
+  @media screen and (min-width: 768px) {
+    height: 16px;
+  }
 `;
 
 const Info = styled.div`
@@ -301,6 +322,7 @@ const Circle = styled.div`
 const CategoryImage = styled(Image)`
   width: 10px;
   height: 10px;
+  align-self: center;
 
   @media screen and (min-width: 768px) {
     width: 12px;

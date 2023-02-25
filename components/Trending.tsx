@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
-import BookmarkEmpty from "../assets/images/icon-bookmark-empty.svg";
-import BookmarkFull from "../assets/images/icon-bookmark-full.svg";
-import TvSeriesIcon from "../assets/images/icon-category-tv.svg";
-import MoviesIcon from "../assets/images/icon-category-movie.svg";
-import TrendingApi from "../data.json";
 import useData from "@/hooks/useData";
-import PlayIcon from "../assets/images/icon-play.svg";
+import TrendingApi from "../data.json";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 
@@ -73,13 +68,28 @@ function Trending() {
                       }}
                     >
                       {item.isBookmarked ? (
-                        <Image src={BookmarkFull} alt="empty bookmark" />
+                        <Image
+                          width={11.67}
+                          height={14}
+                          src="/assets/icon-bookmark-full.svg"
+                          alt="empty bookmark"
+                        />
                       ) : (
-                        <Image src={BookmarkEmpty} alt="empty bookmark" />
+                        <Image
+                          width={11.67}
+                          height={14}
+                          src="/assets/icon-bookmark-empty.svg"
+                          alt="empty bookmark"
+                        />
                       )}
                     </BookmarkCircle>
                     <PlayButton>
-                      <Image src={PlayIcon} alt="play icon" />
+                      <Image
+                        width={30}
+                        height={30}
+                        src="/assets/icon-play.svg"
+                        alt="play icon"
+                      />
                       <PlayButtonText>Play</PlayButtonText>
                     </PlayButton>
                     <Details>
@@ -88,9 +98,19 @@ function Trending() {
                         <Circle></Circle>
                         <Info>
                           {item.category === "Movie" ? (
-                            <CategoryImage src={MoviesIcon} alt="movies" />
+                            <CategoryImage
+                              width={10}
+                              height={10}
+                              src="/assets/icon-category-movie.svg"
+                              alt="movies"
+                            />
                           ) : (
-                            <CategoryImage src={TvSeriesIcon} alt="tv series" />
+                            <CategoryImage
+                              width={10}
+                              height={10}
+                              src="/assets/icon-category-tv.svg"
+                              alt="tv series"
+                            />
                           )}
                           <Text>{item.category}</Text>
                         </Info>
@@ -218,6 +238,11 @@ const Information = styled.div`
   display: flex;
   align-items: center;
   column-gap: 8px;
+  height: 14px;
+
+  @media screen and (min-width: 768px) {
+    height: 16px;
+  }
 `;
 
 const Info = styled.div`
@@ -247,6 +272,7 @@ const Circle = styled.div`
 const CategoryImage = styled(Image)`
   width: 12px;
   height: 12px;
+  align-self: center;
 `;
 
 const Name = styled.p`

@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
-import BookmarkEmpty from "../assets/images/icon-bookmark-empty.svg";
-import BookmarkFull from "../assets/images/icon-bookmark-full.svg";
-import MoviesIcon from "../assets/images/icon-category-movie.svg";
-import MovieApi from "../data.json";
 import useData from "@/hooks/useData";
-import Search from "@/components/Search";
 import useSearchShow from "@/hooks/useSearchShow";
-import PlayIcon from "../assets/images/icon-play.svg";
+import Search from "@/components/Search";
+import MovieApi from "../data.json";
 
 function Movies() {
   const { data, setData } = useData();
@@ -60,13 +56,28 @@ function Movies() {
                       }}
                     >
                       {item.isBookmarked ? (
-                        <Image src={BookmarkFull} alt="empty bookmark" />
+                        <Image
+                          width={11.67}
+                          height={14}
+                          src="/assets/icon-bookmark-full.svg"
+                          alt="empty bookmark"
+                        />
                       ) : (
-                        <Image src={BookmarkEmpty} alt="empty bookmark" />
+                        <Image
+                          width={11.67}
+                          height={14}
+                          src="/assets/icon-bookmark-empty.svg"
+                          alt="empty bookmark"
+                        />
                       )}
                     </BookmarkButton>
                     <PlayButton>
-                      <Image src={PlayIcon} alt="play icon" />
+                      <Image
+                        width={30}
+                        height={30}
+                        src="/assets/icon-play.svg"
+                        alt="play icon"
+                      />
                       <PlayButtonText>Play</PlayButtonText>
                     </PlayButton>
                   </TrendingItem>
@@ -75,7 +86,12 @@ function Movies() {
                       <Text>{item.year}</Text>
                       <Circle></Circle>
                       <Info>
-                        <CategoryImage src={MoviesIcon} alt="movies" />
+                        <CategoryImage
+                          width={10}
+                          height={10}
+                          src="/assets/icon-category-movie.svg"
+                          alt="movies"
+                        />
                         <Text>{item.category}</Text>
                       </Info>
                       <Circle></Circle>
@@ -213,8 +229,8 @@ const PlayButton = styled.button`
   padding-left: 9px;
   align-self: center;
   margin-top: 15px;
-  cursor: pointer;
   transition: all ease 0.5s;
+  cursor: pointer;
 `;
 
 const PlayButtonText = styled.p`
@@ -274,6 +290,7 @@ const Circle = styled.div`
 const CategoryImage = styled(Image)`
   width: 10px;
   height: 10px;
+  align-self: center;
 
   @media screen and (min-width: 768px) {
     width: 12px;

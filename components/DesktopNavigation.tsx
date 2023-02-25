@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import Logo from "../assets/images/logo.svg";
-import HomeIcon from "@/assets/svg/HomeIcon";
-import TvSeriesIcon from "@/assets/svg/TvSeriesIcon";
-import MoviesIcon from "@/assets/svg/MoviesIcon";
-import BookmarkIcon from "@/assets/svg/BookmarkIcon";
-import AvatarIcon from "@/assets/images/image-avatar.png";
+import HomeIcon from "../svg/HomeIcon";
+import TvSeriesIcon from "../svg/TvSeriesIcon";
+import MoviesIcon from "../svg/MoviesIcon";
+import BookmarkIcon from "../svg/BookmarkIcon";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -18,7 +16,7 @@ function DesktopNavigation() {
     <Container>
       <Content>
         <NavBlock>
-          <LogoImage src={Logo} alt="logo" />
+          <LogoImage width={25} height={20} src="/assets/logo.svg" alt="logo" />
           <Nav>
             <Link href="/">
               <HomeIcon pathname={pathname} />
@@ -34,7 +32,12 @@ function DesktopNavigation() {
             </Link>
           </Nav>
         </NavBlock>
-        <AvatarImage src={AvatarIcon} alt="avatar logo" />
+        <AvatarImage
+          width={40}
+          height={40}
+          src="/assets/image-avatar.png"
+          alt="avatar logo"
+        />
       </Content>
     </Container>
   );

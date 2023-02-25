@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import SearchIcon from "../assets/images/icon-search.svg";
 import Image from "next/image";
 
 interface SearchProps {
@@ -11,9 +10,14 @@ interface SearchProps {
 function Search({ placeholder, onChange }: SearchProps) {
   return (
     <Container>
-      <Form>
+      <Form onSubmit={(event) => event.preventDefault}>
         <Button>
-          <SearchImage src={SearchIcon} alt="search icon" />
+          <SearchImage
+            width={18}
+            height={18}
+            src="/assets/icon-search.svg"
+            alt="search icon"
+          />
         </Button>
         <Input onChange={onChange} type="search" placeholder={placeholder} />
       </Form>
