@@ -1,4 +1,4 @@
-![This is header image](./assets/logo.svg)
+![This is header image](./public/assets/logo.svg)
 
 # Entertainment Web App
 
