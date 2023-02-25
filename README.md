@@ -17,18 +17,18 @@
 
 ### Prerequisites
 
-- <img src="./readme/nodejs.png" width="25" style="top: 8px" /> _Node JS @18.X and up_
-- <img src="./readme/npm.png" width="25" style="top: 8px" /> _npm @8 and up_
-- <img src="./readme/typescript.png" width="25" style="top: 8px" /> _typescript @4 and up_
+- <img src="./public/readme/nodejs.png" width="25" style="top: 8px" /> _Node JS @18.X and up_
+- <img src="./public/readme/npm.png" width="25" style="top: 8px" /> _npm @8 and up_
+- <img src="./public/readme/typescript.png" width="25" style="top: 8px" /> _typescript @4 and up_
 
 #
 
 ### Tech Stack
 
-- <img src="./readme/react.png" width="25" style="top: 8px" /> _React @ 18.2.0 - front-end framework_
-- <img src="./readme/nextjs.png" width="25" style="top: 8px" /> _Next JS @ 13.1.6 - React framework_
-- <img src="./readme/styled-components.png" width="25" style="top: 8px"/> _Styled-components @ 5.3.6 - for styles_
-- <img src="./readme/splide.svg" width="25" style="top: 8px"/> _Splide @ 0.7.12 - for slider_
+- <img src="./public/readme/react.png" width="25" style="top: 8px" /> _React @ 18.2.0 - front-end framework_
+- <img src="./public/readme/nextjs.png" width="25" style="top: 8px" /> _Next JS @ 13.1.6 - React framework_
+- <img src="./public/readme/styled-components.png" width="25" style="top: 8px"/> _Styled-components @ 5.3.6 - for styles_
+- <img src="./public/readme/splide.svg" width="25" style="top: 8px"/> _Splide @ 0.7.12 - for slider_
 
 #
 
